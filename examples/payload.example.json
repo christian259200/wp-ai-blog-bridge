@@ -1,0 +1,64 @@
+{
+  "external_id": "guia-seo-local-2026-08",
+  "title": "Guía de SEO local para negocios de servicios",
+  "slug": "guia-seo-local-servicios",
+  "excerpt": "Cómo aparecer en el paquete local de Google cuando no tienes tienda física.",
+  "content_format": "markdown",
+  "content": "## Por dónde empezar\n\nEl perfil de empresa manda...\n\n### Señales que sí mueven la aguja\n\n- Categoría principal correcta\n- Reseñas recientes\n- NAP consistente\n",
+  "status": "draft",
+  "post_type": "post",
+  "date": "2026-08-25T09:00:00",
+  "author": "editor",
+  "categories": ["SEO", "Local"],
+  "tags": ["seo local", "google business profile"],
+  "taxonomies": {
+    "cliente": ["Aloja"]
+  },
+  "toc": true,
+  "key_takeaways": [
+    "La categoría principal del perfil pesa más que cualquier palabra clave en la descripción.",
+    "Las reseñas de los últimos 90 días influyen más que el total histórico."
+  ],
+  "featured_image": {
+    "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+    "alt": "Equipo revisando métricas en una oficina",
+    "caption": "Foto: Unsplash",
+    "title": "Equipo de marketing local"
+  },
+  "images": [
+    {
+      "url": "https://cdn.pixabay.com/photo/2017/01/29/13/21/mobile-2019704_1280.jpg",
+      "alt": "Búsqueda local en un móvil"
+    }
+  ],
+  "seo": {
+    "title": "SEO local para negocios de servicios: guía 2026",
+    "description": "Checklist accionable para posicionar un negocio de servicios en el paquete local de Google.",
+    "focus_keyword": "seo local servicios",
+    "canonical": "https://example.com/guia-seo-local-servicios",
+    "og_image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c"
+  },
+  "faq": [
+    {
+      "question": "¿Sirve el SEO local sin dirección pública?",
+      "answer": "Sí. Los negocios con área de servicio pueden ocultar la dirección y definir un radio de cobertura."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Google Business Profile Help",
+      "url": "https://support.google.com/business/",
+      "date": "2026-06"
+    }
+  ],
+  "author_meta": {
+    "name": "Jane Doe",
+    "job_title": "SEO Lead",
+    "url": "https://example.com/autor/christian",
+    "bio": "Diez años optimizando negocios locales."
+  },
+  "meta": {
+    "campana": "verano-2026"
+  },
+  "update_existing": true
+}

@@ -1,0 +1,787 @@
+/* AI Blog Bridge — editorial layout for blog posts.
+ *
+ * Shop themes lay articles out like landing pages: full-bleed width, oversized
+ * headings, body copy running edge to edge. That is hard to read for anything
+ * longer than a product description. Everything below is scoped to single blog
+ * posts, so products and landing pages keep the theme's own design untouched.
+ *
+ * Brand colours are variables; override them in the customiser or a child
+ * theme rather than editing this file.
+ */
+
+:root {
+	--abb-primary: #0066b4;
+	--abb-primary-dark: #044a80;
+	--abb-accent: #cc2b2b;
+	--abb-ink: #1e2a35;
+	--abb-surface: #f6f9fc;
+	--abb-border: #e2eaf2;
+	--abb-muted: #64757f;
+	--abb-measure: 46rem; /* ~72 characters per line */
+}
+
+/* --------------------------------------------------------------------------
+ * The column
+ *
+ * A single constrained, centred measure is what separates an article that
+ * reads from one that sprawls.
+ * ----------------------------------------------------------------------- */
+
+.single-post .entry-content,
+.single-post .post-content {
+	max-width: var(--abb-measure);
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 1.0625rem;
+	line-height: 1.75;
+	color: var(--abb-ink);
+}
+
+.single-post .entry-title,
+.single-post .post-title {
+	max-width: var(--abb-measure);
+	margin-left: auto;
+	margin-right: auto;
+	font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.5rem);
+	line-height: 1.18;
+	letter-spacing: -0.01em;
+	color: var(--abb-ink);
+}
+
+/* --------------------------------------------------------------------------
+ * Headings
+ * ----------------------------------------------------------------------- */
+
+.single-post .entry-content h2,
+.single-post .post-content h2 {
+	font-size: clamp(1.3rem, 1.15rem + 0.75vw, 1.6rem);
+	line-height: 1.3;
+	margin: 2.4em 0 0.5em;
+	font-weight: 600;
+	color: var(--abb-ink);
+	text-transform: none;
+	letter-spacing: -0.005em;
+}
+
+.single-post .entry-content h3,
+.single-post .post-content h3 {
+	font-size: clamp(1.05rem, 1rem + 0.35vw, 1.2rem);
+	line-height: 1.4;
+	margin: 1.8em 0 0.4em;
+	font-weight: 600;
+	color: var(--abb-ink);
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+.single-post .entry-content p,
+.single-post .post-content p {
+	margin: 0 0 1.2em;
+}
+
+.single-post .entry-content ul,
+.single-post .entry-content ol {
+	margin: 0 0 1.4em;
+	padding-left: 1.3em;
+}
+
+.single-post .entry-content li {
+	margin-bottom: 0.5em;
+}
+
+.single-post .entry-content a,
+.single-post .post-content a {
+	color: var(--abb-primary);
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 2px;
+}
+
+.single-post .entry-content a:hover {
+	color: var(--abb-accent);
+}
+
+.single-post .entry-content strong {
+	font-weight: 600;
+	color: var(--abb-ink);
+}
+
+/* --------------------------------------------------------------------------
+ * Images
+ * ----------------------------------------------------------------------- */
+
+.single-post .entry-content img,
+.single-post .post-thumbnail img,
+.single-post .entry-thumbnail img {
+	border-radius: 10px;
+}
+
+.single-post .entry-content figure {
+	margin: 2em 0;
+}
+
+.single-post .entry-content figcaption,
+.single-post .entry-content .wp-element-caption {
+	margin-top: 0.6em;
+	font-size: 0.85rem;
+	line-height: 1.5;
+	color: var(--abb-muted);
+	text-align: left;
+}
+
+/* --------------------------------------------------------------------------
+ * Table of contents
+ *
+ * Quiet by design: it is a signpost, not a headline.
+ * ----------------------------------------------------------------------- */
+
+.abb-toc {
+	max-width: var(--abb-measure);
+	margin: 2.2em auto;
+	padding: 1.3em 1.5em;
+	border: 1px solid var(--abb-border);
+	border-radius: 10px;
+	background: #fff;
+	counter-reset: abb-toc;
+}
+
+.abb-toc h2,
+.single-post .entry-content .abb-toc h2 {
+	margin: 0 0 0.8em;
+	font-size: 0.7rem;
+	font-weight: 600;
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: var(--abb-muted);
+}
+
+.abb-toc ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.abb-toc li {
+	margin: 0 0 0.45em;
+	padding-left: 1.6em;
+	position: relative;
+	font-size: 0.95rem;
+	line-height: 1.5;
+}
+
+.abb-toc li::before {
+	counter-increment: abb-toc;
+	content: counter(abb-toc);
+	position: absolute;
+	left: 0;
+	color: var(--abb-muted);
+	font-size: 0.8rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.abb-toc a {
+	color: var(--abb-ink);
+	text-decoration: none;
+}
+
+.abb-toc a:hover,
+.abb-toc a:focus {
+	color: var(--abb-primary);
+	text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+ * Key takeaways
+ * ----------------------------------------------------------------------- */
+
+.abb-key-takeaways {
+	max-width: var(--abb-measure);
+	margin: 2.2em auto;
+	padding: 1.4em 1.6em;
+	border: 1px solid var(--abb-border);
+	border-left: 3px solid var(--abb-primary);
+	border-radius: 10px;
+	background: var(--abb-surface);
+}
+
+.abb-key-takeaways h2,
+.single-post .entry-content .abb-key-takeaways h2 {
+	margin: 0 0 0.7em;
+	font-size: 0.7rem;
+	font-weight: 600;
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: var(--abb-primary);
+}
+
+.abb-key-takeaways ul {
+	margin: 0;
+	padding-left: 1.1em;
+}
+
+.abb-key-takeaways li {
+	margin-bottom: 0.5em;
+	font-size: 0.97rem;
+	line-height: 1.6;
+}
+
+.abb-key-takeaways li::marker {
+	color: var(--abb-primary);
+}
+
+/* --------------------------------------------------------------------------
+ * Tables
+ * ----------------------------------------------------------------------- */
+
+.single-post .entry-content .wp-block-table,
+.single-post .entry-content figure.wp-block-table {
+	max-width: var(--abb-measure);
+	margin: 2.2em auto;
+	overflow-x: auto;
+}
+
+.single-post .entry-content table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.92rem;
+	line-height: 1.5;
+}
+
+.single-post .entry-content table th {
+	padding: 0.75em 0.9em;
+	background: var(--abb-primary);
+	color: #fff;
+	text-align: left;
+	font-weight: 600;
+	border: none;
+	white-space: nowrap;
+}
+
+.single-post .entry-content table td {
+	padding: 0.7em 0.9em;
+	border-bottom: 1px solid var(--abb-border);
+	text-align: left;
+	vertical-align: top;
+}
+
+.single-post .entry-content table tbody tr:nth-child(even) {
+	background: var(--abb-surface);
+}
+
+/* --------------------------------------------------------------------------
+ * Freshness, quotes, sources
+ * ----------------------------------------------------------------------- */
+
+.abb-freshness {
+	max-width: var(--abb-measure);
+	margin: 0 auto 1.8em;
+	font-size: 0.8rem;
+	letter-spacing: 0.02em;
+	color: var(--abb-muted);
+}
+
+.single-post .entry-content blockquote {
+	margin: 2em 0;
+	padding: 0.4em 0 0.4em 1.3em;
+	border-left: 3px solid var(--abb-accent);
+	font-style: normal;
+	color: var(--abb-primary-dark);
+}
+
+.abb-source-date {
+	color: var(--abb-muted);
+	font-size: 0.9em;
+}
+
+/* --------------------------------------------------------------------------
+ * Small screens
+ * ----------------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+	.single-post .entry-content,
+	.single-post .post-content {
+		font-size: 1rem;
+	}
+
+	.abb-key-takeaways,
+	.abb-toc {
+		padding: 1.1em 1.2em;
+	}
+
+	.single-post .entry-content table {
+		font-size: 0.85rem;
+	}
+}
+
+/* --------------------------------------------------------------------------
+ * Theme chrome removed on single posts
+ *
+ * Class names verified against the live markup rather than guessed: the theme
+ * uses .share-post, .page-heading and a Bootstrap-style .col-md-9 / .col-md-3
+ * split. Guessing produced a rule that matched nothing on the first attempt.
+ * ----------------------------------------------------------------------- */
+
+/* Share row: X, VK, Pinterest, Skype. Nothing to gain on a B2B blog. */
+.single-post .share-post {
+	display: none !important;
+}
+
+/* Comment form and thread. */
+.single-post #comments,
+.single-post .comments-area,
+.single-post .comment-respond,
+.single-post #respond,
+.single-post .comments-title {
+	display: none !important;
+}
+
+/* Blue "Home > Blog > Blog" band above the article. */
+.single-post .page-heading {
+	display: none !important;
+}
+
+/* Sidebar out, article column to full width. */
+.single-post .sidebar-right,
+.single-post .col-md-3.sidebar-enabled {
+	display: none !important;
+}
+
+/* The markup is .content-page > .sidebar-position-right > .row > .content, so
+   the two classes live on different elements. Written as a compound selector
+   this matched nothing and the column kept Bootstrap's floated 75%. */
+.single-post .content-page .content.col-md-9 {
+	width: 100% !important;
+	max-width: 100% !important;
+	flex: 0 0 100% !important;
+	float: none !important;
+}
+
+/* --------------------------------------------------------------------------
+ * Post header
+ *
+ * The theme floats the featured image to one side of the header, which reads
+ * as a broken two-column layout on an article. The image is better placed
+ * inside the body, next to the section it illustrates, so the header keeps
+ * only the title and the meta line, both on the same centred measure as the
+ * text below.
+ * ----------------------------------------------------------------------- */
+
+.single-post .post-header .wp-picture {
+	display: none;
+}
+
+.single-post .post-header {
+	max-width: var(--abb-measure);
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+.single-post .meta-post {
+	max-width: var(--abb-measure);
+	margin: 0.6em auto 1.4em;
+	font-size: 0.85rem;
+	color: var(--abb-muted);
+}
+
+.single-post .abb-byline {
+	max-width: var(--abb-measure);
+	margin: 0 auto 0.3em;
+	font-size: 0.9rem;
+	color: var(--abb-muted);
+}
+
+.single-post .abb-byline a {
+	color: var(--abb-primary);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.single-post .abb-byline a:hover {
+	text-decoration: underline;
+}
+
+/* Tag row at the foot of the article, on the same measure as everything else. */
+.single-post .single-tags {
+	max-width: var(--abb-measure);
+	margin: 2.5em auto 0;
+	padding-top: 1.2em;
+	border-top: 1px solid var(--abb-border);
+	font-size: 0.88rem;
+	color: var(--abb-muted);
+}
+
+.single-post .single-tags span {
+	font-weight: 600;
+	color: var(--abb-ink);
+}
+
+.single-post .single-tags a {
+	color: var(--abb-muted);
+}
+
+.single-post .single-tags a:hover {
+	color: var(--abb-primary);
+}
+
+/* Images placed inside the article. */
+.single-post .entry-content .wp-block-image {
+	max-width: var(--abb-measure);
+	margin: 2em auto;
+}
+
+.single-post .entry-content .wp-block-image img {
+	width: 100%;
+	height: auto;
+	border-radius: 10px;
+}
+
+/* --------------------------------------------------------------------------
+ * Video embeds
+ * ----------------------------------------------------------------------- */
+
+.abb-video {
+	max-width: var(--abb-measure);
+	margin: 2em auto;
+	aspect-ratio: 16 / 9;
+	border-radius: 10px;
+	overflow: hidden;
+	background: #000;
+}
+
+.abb-video iframe {
+	width: 100%;
+	height: 100%;
+	border: 0;
+	display: block;
+	/* A custom Elementor rule on this site sets filter:grayscale(100%) on every
+	   iframe, unscoped. It turns embedded video black and white. */
+	filter: none !important;
+	border-radius: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+ * Blog listing
+ *
+ * The theme ships a "chess" layout: each post is an <article class="...
+ * content-chess"> laid out alternately left and right. With titles of
+ * different lengths nothing lines up and the eye has no column to follow.
+ *
+ * Selectors verified against the live markup — the card is an <article>, not
+ * a <div>, which is why an earlier attempt styled nothing. !important is used
+ * where the chess layout sets widths and floats inline in its own stylesheet.
+ * ----------------------------------------------------------------------- */
+
+.blog .et_blog-ajax,
+.archive .et_blog-ajax,
+.category .et_blog-ajax,
+.search .et_blog-ajax {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+	gap: 2rem;
+	align-items: stretch;
+}
+
+.blog .et_blog-ajax > article,
+.archive .et_blog-ajax > article,
+.category .et_blog-ajax > article,
+.search .et_blog-ajax > article {
+	width: 100% !important;
+	max-width: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	float: none !important;
+	left: auto !important;
+	right: auto !important;
+	position: relative !important;
+	display: flex !important;
+	flex-direction: column !important;
+	background: #fff;
+	border: 1px solid var(--abb-border);
+	border-radius: 12px;
+	overflow: hidden;
+	transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.blog .et_blog-ajax > article:hover,
+.archive .et_blog-ajax > article:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 26px rgba(4, 74, 128, 0.13);
+}
+
+/* Thumbnail: always on top, always the same shape. */
+.blog .et_blog-ajax > article .wp-picture,
+.archive .et_blog-ajax > article .wp-picture,
+.category .et_blog-ajax > article .wp-picture {
+	width: 100% !important;
+	max-width: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	float: none !important;
+	order: -1;
+	position: relative;
+	border-radius: 0;
+}
+
+.blog .et_blog-ajax > article .wp-picture img,
+.archive .et_blog-ajax > article .wp-picture img,
+.category .et_blog-ajax > article .wp-picture img {
+	width: 100% !important;
+	height: auto;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+	display: block;
+	border-radius: 0;
+}
+
+/* Category chip sits on the image. */
+.blog .et_blog-ajax > article .post-categories,
+.archive .et_blog-ajax > article .post-categories,
+.category .et_blog-ajax > article .post-categories {
+	position: absolute;
+	top: 0.7rem;
+	left: 0.7rem;
+	margin: 0;
+	padding: 0.25rem 0.6rem;
+	background: var(--abb-primary);
+	border-radius: 4px;
+	font-size: 0.65rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	line-height: 1.4;
+}
+
+.blog .et_blog-ajax > article .post-categories a,
+.archive .et_blog-ajax > article .post-categories a {
+	color: #fff;
+	text-decoration: none;
+}
+
+/* Card body fills the rest so every card ends level. */
+.blog .et_blog-ajax > article .post-data,
+.archive .et_blog-ajax > article .post-data,
+.category .et_blog-ajax > article .post-data {
+	width: 100% !important;
+	max-width: none !important;
+	margin: 0 !important;
+	padding: 1.25rem 1.35rem 1.5rem !important;
+	float: none !important;
+	text-align: left !important;
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+}
+
+.blog .et_blog-ajax > article .post-heading,
+.blog .et_blog-ajax > article .post-heading-inner {
+	margin: 0;
+	padding: 0;
+}
+
+.blog .et_blog-ajax > article h2.entry-title,
+.archive .et_blog-ajax > article h2.entry-title,
+.category .et_blog-ajax > article h2.entry-title {
+	font-size: 1.05rem !important;
+	line-height: 1.35 !important;
+	margin: 0 0 0.5rem !important;
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.blog .et_blog-ajax > article .entry-title a,
+.archive .et_blog-ajax > article .entry-title a {
+	color: var(--abb-ink);
+	text-decoration: none;
+}
+
+.blog .et_blog-ajax > article .entry-title a:hover {
+	color: var(--abb-primary);
+}
+
+.blog .et_blog-ajax > article .meta-post,
+.archive .et_blog-ajax > article .meta-post,
+.category .et_blog-ajax > article .meta-post {
+	margin: 0 0 0.7rem !important;
+	padding: 0;
+	font-size: 0.76rem;
+	color: var(--abb-muted);
+}
+
+.blog .et_blog-ajax > article .content-article,
+.archive .et_blog-ajax > article .content-article,
+.category .et_blog-ajax > article .content-article {
+	max-width: none !important;
+	margin: 0 !important;
+	padding: 0;
+	font-size: 0.9rem;
+	line-height: 1.6;
+	color: var(--abb-muted);
+}
+
+.blog .et_blog-ajax > article .read-more,
+.blog .et_blog-ajax > article .btn-read-more,
+.archive .et_blog-ajax > article .read-more {
+	margin-top: auto;
+	padding-top: 0.9rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--abb-primary);
+	text-decoration: none;
+}
+
+/* The theme's hover overlay adds nothing to a card. */
+.blog .et_blog-ajax > article .blog-mask,
+.archive .et_blog-ajax > article .blog-mask,
+.category .et_blog-ajax > article .blog-mask {
+	display: none !important;
+}
+
+@media (max-width: 480px) {
+	.blog .et_blog-ajax,
+	.archive .et_blog-ajax {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* --------------------------------------------------------------------------
+ * Chess layout, the inner wrapper
+ *
+ * Read from the theme's own small-chess.min.css:
+ *
+ *   article.content-chess > div        { display:flex; align-items:center }
+ *   article.content-chess > div .post-data { width:50%; flex:1 }
+ *
+ * That inner flex row is what squeezed the card text to half width and
+ * centred it vertically, leaving the blank space around the thumbnail.
+ * Stacking it fixes the card without touching the theme files.
+ * ----------------------------------------------------------------------- */
+
+.blog .et_blog-ajax > article > div,
+.archive .et_blog-ajax > article > div,
+.category .et_blog-ajax > article > div,
+.search .et_blog-ajax > article > div {
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: stretch !important;
+	width: 100% !important;
+	height: 100%;
+}
+
+.blog .et_blog-ajax > article > div > .post-data,
+.archive .et_blog-ajax > article > div > .post-data,
+.category .et_blog-ajax > article > div > .post-data,
+.blog .et_blog-ajax > article .post-data,
+.archive .et_blog-ajax > article .post-data {
+	width: 100% !important;
+	flex: 1 1 auto !important;
+	margin: 0 !important;
+}
+
+.blog .et_blog-ajax > article > div > .wp-picture,
+.archive .et_blog-ajax > article > div > .wp-picture,
+.category .et_blog-ajax > article > div > .wp-picture {
+	width: 100% !important;
+	flex: 0 0 auto !important;
+	order: -1;
+	margin: 0 !important;
+}
+
+/* The theme also floats the thumbnail on even rows of the chess layout. */
+.blog .et_blog-ajax > article .wp-picture,
+.archive .et_blog-ajax > article .wp-picture {
+	float: none !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+ * Grid gutters
+ *
+ * The theme's row carries the usual negative side margins that a float grid
+ * cancels out with column padding. CSS grid has no such padding, so the first
+ * card hung off the left edge of the viewport. Zeroing the margin puts the
+ * track back inside the container.
+ * ----------------------------------------------------------------------- */
+
+.blog .et_blog-ajax,
+.archive .et_blog-ajax,
+.category .et_blog-ajax,
+.search .et_blog-ajax {
+	margin-left: auto !important;
+	margin-right: auto !important;
+	/* Zeroing the row's negative margin also removed the gutter, which left
+	   the first card flush against the viewport edge. This puts it back. */
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+	width: 100%;
+	max-width: 1400px;
+	box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+ * Full width listing
+ *
+ * The sidebar held a category list, a recent-posts list and, until it was
+ * removed, a broken newsletter shortcode. None of it earns the third of the
+ * width it takes from the cards. Dropping it gives a clean three-column grid
+ * on desktop, which is what the listing wanted to be all along.
+ * ----------------------------------------------------------------------- */
+
+.blog .sidebar-right,
+.archive .sidebar-right,
+.category .sidebar-right,
+.search .sidebar-right,
+.blog .col-md-3.sidebar-enabled,
+.archive .col-md-3.sidebar-enabled,
+.category .col-md-3.sidebar-enabled {
+	display: none !important;
+}
+
+/* Same compound-selector bug as the single-post rule: .sidebar-position-right
+   is a child of .content-page, not the same element. Hiding the sidebar without
+   this left the grid floated in a 75% column with dead space on the right. */
+.blog .content-page .content.col-md-9,
+.archive .content-page .content.col-md-9,
+.category .content-page .content.col-md-9,
+.search .content-page .content.col-md-9 {
+	width: 100% !important;
+	max-width: 100% !important;
+	flex: 0 0 100% !important;
+	float: none !important;
+}
+
+/* The count and the page numbers sat pinned to opposite edges, which read as
+   two stray elements once the column went full width. Centred as one group. */
+.blog .etheme-pagination.articles-pagination,
+.archive .etheme-pagination.articles-pagination,
+.category .etheme-pagination.articles-pagination,
+.search .etheme-pagination.articles-pagination {
+	justify-content: center !important;
+	gap: 1.5rem;
+	flex-wrap: wrap;
+}
+
+/* Three columns on desktop, like the reference. */
+@media (min-width: 992px) {
+	.blog .et_blog-ajax,
+	.archive .et_blog-ajax,
+	.category .et_blog-ajax,
+	.search .et_blog-ajax {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2.5rem 2rem;
+	}
+}
+
+@media (min-width: 640px) and (max-width: 991px) {
+	.blog .et_blog-ajax,
+	.archive .et_blog-ajax,
+	.category .et_blog-ajax {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
