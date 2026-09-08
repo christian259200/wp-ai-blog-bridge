@@ -92,7 +92,7 @@ class ABB_SEO {
 			$graph[] = $custom;
 		}
 
-		if ( empty( $payload['schema_skip_blogposting'] ) ) {
+		if ( self::should_emit_blogposting( $payload ) ) {
 			$graph[] = self::blogposting_node( $post_id, $payload );
 		}
 
@@ -118,6 +118,45 @@ class ABB_SEO {
 				)
 			)
 		);
+	}
+
+	/**
+	 * Should this plugin publish its own BlogPosting node?
+	 *
+	 * Yoast, Rank Math and SEOPress all emit an Article or BlogPosting node of
+	 * their own. Emitting a second one for the same URL is not additive: each
+	 * node carries its own author, dates and images, and when they disagree a
+	 * search engine picks one without telling you which. Two nodes is a defect,
+	 * not extra coverage.
+	 *
+	 * So the default is to stand down when one of those plugins is active and
+	 * publish only what it does not cover, which is the FAQPage node.
+	 *
+	 * Three ways to override, most specific first:
+	 *   1. "schema_blogposting" in the request payload: always | never | auto
+	 *   2. "schema_skip_blogposting" in the payload, kept for older clients
+	 *   3. The "blogposting_schema" setting on the settings screen
+	 *
+	 * @param array $payload Full request payload.
+	 * @return bool
+	 */
+	private static function should_emit_blogposting( array $payload ) {
+		// Older clients sent a plain skip flag. Still honoured.
+		if ( ! empty( $payload['schema_skip_blogposting'] ) ) {
+			return false;
+		}
+
+		$mode = $payload['schema_blogposting'] ?? ABB_Settings::get( 'blogposting_schema', 'auto' );
+		$mode = is_string( $mode ) ? strtolower( trim( $mode ) ) : 'auto';
+
+		if ( 'always' === $mode ) {
+			return true;
+		}
+		if ( 'never' === $mode ) {
+			return false;
+		}
+
+		return ! self::has_seo_plugin();
 	}
 
 	private static function blogposting_node( $post_id, array $payload ) {

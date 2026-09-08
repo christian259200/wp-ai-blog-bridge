@@ -15,6 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * the first heading carrying a known title class, and only when the page
  * genuinely has no H1, so a theme that already does the right thing is left
  * alone and so is every other heading on the page.
+ *
+ * Note on hidden titles: if a theme parks the H1 inside a banner and something
+ * hides that banner with display:none, this check still sees an H1 and leaves
+ * the page alone. That is deliberate. Detecting CSS visibility from a string
+ * of HTML is not something a regular expression can do honestly, and guessing
+ * risks injecting a second H1. The fix for that case belongs in the stylesheet,
+ * which is where assets/abb-frontend.css now keeps the banner title visible.
  */
 class ABB_Frontend {
 
@@ -52,7 +59,12 @@ class ABB_Frontend {
 		}
 
 		$classes = implode( '|', array_map( 'preg_quote', self::$title_classes ) );
-		$pattern = '/<h([2-4])(\s[^>]*class="[^"]*(?:' . $classes . ')[^"]*"[^>]*)>(.*?)<\/h>/is';
+
+		// The closing tag has to back-reference the heading level captured at
+		// the start. Builds up to 2.1.2 shipped a literal </h> here, so the
+		// pattern could never match any HTML and this feature did nothing at
+		// all, silently, in every install.
+		$pattern = '/<h([2-4])(\s[^>]*class="[^"]*(?:' . $classes . ')[^"]*"[^>]*)>(.*?)<\/h\1>/is';
 
 		$done = false;
 

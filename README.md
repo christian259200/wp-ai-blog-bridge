@@ -56,6 +56,12 @@ fails every keyword check.
 
 Writes meta for Rank Math, Yoast and SEOPress, and detects which one is active.
 
+When one of them is active, the plugin **does not** publish its own
+`BlogPosting` node, because they already publish one and two Article nodes for
+the same URL is a defect rather than extra coverage. It publishes the `FAQPage`
+node either way, since no SEO plugin builds that from this payload. Change it
+under `Settings -> AI Blog Bridge -> BlogPosting schema`.
+
 ## Install
 
 1. Download the zip from [Releases](../../releases), or build it with
@@ -119,6 +125,7 @@ python publish.py post.md --dry-run     # inspect the payload, send nothing
 python publish.py posts/ --glob "*.md"  # a folder
 python publish.py --ping                # check the connection
 python publish.py --audit 123           # re-audit a published post
+python publish.py posts/ --strict       # fail the run on any warning
 python publish.py --stale 90            # list posts not updated in 90 days
 ```
 
@@ -126,8 +133,12 @@ python publish.py --stale 90            # list posts not updated in 90 days
 bursts and answers with an HTML error page instead of JSON.
 
 ```bash
-for f in posts/*.md; do python publish.py "$f"; sleep 20; done
+for f in posts/*.md; do python publish.py "$f" --strict; sleep 20; done
 ```
+
+`--strict` matters more in a batch than anywhere else. A dropped internal link
+is only a warning, and a warning in the middle of a long run scrolls past. Two
+posts in a batch of seven shipped with a missing link before this flag existed.
 
 ## About the CSS, read this before installing on a client site
 

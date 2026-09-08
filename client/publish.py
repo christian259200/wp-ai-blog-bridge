@@ -425,6 +425,8 @@ def main() -> int:
     parser.add_argument("--format", default="markdown", choices=["markdown", "html", "blocks"], help="Content format")
     parser.add_argument("--toc", action="store_true", help="Insert a table of contents block")
     parser.add_argument("--no-extract-faq", action="store_true", help="Keep the FAQ section inline instead of converting it to schema")
+    parser.add_argument("--strict", action="store_true",
+                        help="Exit non-zero when a post publishes with warnings or audit errors. A dropped internal link is only a warning, so without this a batch can finish green while losing links.")
     parser.add_argument("--dry-run", action="store_true", help="Print the payload without sending it")
     parser.add_argument("--dry-run-local-images", action="store_true", help="Skip media sideloading on the server")
     parser.add_argument("--updated-date", action="store_true", help="Print a visible last-updated line at the top of the post")
@@ -468,10 +470,23 @@ def main() -> int:
             if injected:
                 print(f"     enlaces internos inyectados: {', '.join(injected)}")
 
-            for warning in data.get("warnings", []):
+            warnings = data.get("warnings", [])
+            for warning in warnings:
                 print(f"     warning: {warning}")
 
+            # A dropped internal link produces a warning and a successful
+            # publish, so it is easy to miss when a batch scrolls past. With
+            # --strict the run reports failure and CI stops on it.
+            if warnings and args.strict:
+                failures += 1
+                print(f"     [X] {len(warnings)} warning(s) and --strict is on")
+
             print_audit(data)
+
+            audit = data.get("audit") or {}
+            if args.strict and audit.get("errors"):
+                failures += 1
+                print(f"     [X] {len(audit['errors'])} audit error(s) and --strict is on")
 
             if data.get("inspect_link"):
                 print(f"     indexar: {data['inspect_link']}")

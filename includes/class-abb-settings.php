@@ -24,6 +24,7 @@ class ABB_Settings {
 			'default_category'  => 0,
 			'sideload_images'   => 1,
 			'emit_schema'       => 1,
+			'blogposting_schema' => 'auto',
 			'emit_og'           => 1,
 			'log_retention'     => 200,
 			'openai_key'        => '',
@@ -76,6 +77,8 @@ class ABB_Settings {
 		$clean['default_category']  = isset( $input['default_category'] ) ? absint( $input['default_category'] ) : 0;
 		$clean['sideload_images']   = empty( $input['sideload_images'] ) ? 0 : 1;
 		$clean['emit_schema']       = empty( $input['emit_schema'] ) ? 0 : 1;
+		$mode                       = isset( $input['blogposting_schema'] ) ? sanitize_key( $input['blogposting_schema'] ) : 'auto';
+		$clean['blogposting_schema'] = in_array( $mode, array( 'auto', 'always', 'never' ), true ) ? $mode : 'auto';
 		$clean['emit_og']           = empty( $input['emit_og'] ) ? 0 : 1;
 		$clean['log_retention']     = isset( $input['log_retention'] ) ? max( 10, absint( $input['log_retention'] ) ) : 200;
 		$clean['openai_key']        = isset( $input['openai_key'] ) ? trim( sanitize_text_field( $input['openai_key'] ) ) : '';
@@ -238,6 +241,19 @@ class ABB_Settings {
 							<label><input type="checkbox" name="abb_settings[emit_schema]" value="1" <?php checked( $o['emit_schema'], 1 ); ?> /> <?php esc_html_e( 'Print JSON-LD schema in the page head', 'ai-blog-bridge' ); ?></label><br />
 							<label><input type="checkbox" name="abb_settings[emit_og]" value="1" <?php checked( $o['emit_og'], 1 ); ?> /> <?php esc_html_e( 'Print Open Graph and Twitter tags when no SEO plugin is active', 'ai-blog-bridge' ); ?></label><br />
 						<label><input type="checkbox" name="abb_settings[force_h1]" value="1" <?php checked( $o['force_h1'], 1 ); ?> /> <?php esc_html_e( 'Promote the post title to H1 when the theme leaves the page without one', 'ai-blog-bridge' ); ?></label>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="abb_blogposting_schema"><?php esc_html_e( 'BlogPosting schema', 'ai-blog-bridge' ); ?></label></th>
+						<td>
+							<select id="abb_blogposting_schema" name="abb_settings[blogposting_schema]">
+								<option value="auto" <?php selected( $o['blogposting_schema'], 'auto' ); ?>><?php esc_html_e( 'Auto: skip it when an SEO plugin already emits one', 'ai-blog-bridge' ); ?></option>
+								<option value="always" <?php selected( $o['blogposting_schema'], 'always' ); ?>><?php esc_html_e( 'Always emit', 'ai-blog-bridge' ); ?></option>
+								<option value="never" <?php selected( $o['blogposting_schema'], 'never' ); ?>><?php esc_html_e( 'Never emit', 'ai-blog-bridge' ); ?></option>
+							</select>
+							<p class="description">
+								<?php esc_html_e( 'Yoast, Rank Math and SEOPress publish their own Article node. A second one for the same URL is a defect, not extra coverage: each carries its own author and dates, and a search engine picks one without telling you which. The FAQPage node is always published, because no SEO plugin builds it from this payload.', 'ai-blog-bridge' ); ?>
+							</p>
 						</td>
 					</tr>
 					<tr>

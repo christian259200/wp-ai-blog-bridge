@@ -3,7 +3,7 @@
  * Plugin Name:       AI Blog Bridge
  * Plugin URI:        https://github.com/christian259200/wp-ai-blog-bridge
  * Description:       Receives structured blog posts from a local AI pipeline over the REST API and publishes them with images, taxonomies, SEO meta and JSON-LD schema.
- * Version:           2.1.2
+ * Version:           2.2.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Christian Monge
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ABB_VERSION', '2.1.2' );
+define( 'ABB_VERSION', '2.2.0' );
 define( 'ABB_FILE', __FILE__ );
 define( 'ABB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ABB_NAMESPACE', 'ai-blog/v1' );

@@ -337,8 +337,44 @@
 	display: none !important;
 }
 
-/* Blue "Home > Blog > Blog" band above the article. */
+/* Blue "Home > Blog > Blog" band above the article.
+ *
+ * Hiding the whole band is the obvious move and it is wrong: this theme puts
+ * the only H1 on the page inside that band. display:none takes it out of what
+ * search engines count, so every post ends up with no usable H1 and a visible
+ * title that is only an H2. Builds up to 2.1.2 shipped exactly that bug.
+ *
+ * The band stays, stripped of its chrome, and its H1 becomes the article
+ * title. The theme's duplicate .entry-title is hidden instead. */
 .single-post .page-heading {
+	background: none !important;
+	background-image: none !important;
+	padding: 0 !important;
+	margin: 0 0 0.5rem !important;
+	min-height: 0 !important;
+}
+
+.single-post .page-heading .breadcrumbs,
+.single-post .page-heading #breadcrumb {
+	display: none !important;
+}
+
+.single-post .page-heading .a-center {
+	text-align: left !important;
+}
+
+/* The banner H1 restyled to read as the article title. */
+.single-post .page-heading h1.title {
+	color: inherit !important;
+	font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem) !important;
+	line-height: 1.25 !important;
+	margin: 0 !important;
+	text-shadow: none !important;
+}
+
+/* The theme prints the same title again as an H2 inside the article. One
+   title is enough, and the one that survives has to be the H1. */
+.single-post .post-heading .entry-title {
 	display: none !important;
 }
 
